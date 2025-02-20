@@ -1,0 +1,28 @@
+<div class="app-container">
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark" *ngIf="authService.currentUser$ | async">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">Project Management</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav me-auto">
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/dashboard" routerLinkActive="active">Dashboard</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/project" routerLinkActive="active">Projects</a>
+          </li>
+        </ul>
+        <div class="d-flex align-items-center">
+          <span class="text-light me-3">{{ (authService.currentUser$ | async)?.username }}</span>
+          <button class="btn btn-outline-light" (click)="logout()">Logout</button>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <div class="content">
+    <router-outlet></router-outlet>
+  </div>
+</div>
