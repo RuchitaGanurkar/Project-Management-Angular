@@ -1,6 +1,16 @@
 [functions]
-  included_files = ["dist/**"]
+  included_files = ["dist/basic-application"]
   node_bundler = "esbuild"
+
+[[redirects]]
+  from = "/project/:id"
+  to = "/index.html"
+  status = 200
+
+
+[build]
+  command = "ng build --configuration=production"
+  publish = "dist/dist/basic-application"
 
 [[redirects]]
   from = "/project/:id"
