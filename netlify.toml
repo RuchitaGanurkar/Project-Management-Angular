@@ -1,0 +1,8 @@
+[functions]
+  included_files = ["dist/**"]
+  node_bundler = "esbuild"
+
+[[redirects]]
+  from = "/project/:id"
+  to = "/index.html"
+  status = 200
