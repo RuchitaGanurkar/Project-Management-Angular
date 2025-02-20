@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { ProjectListComponent } from './project-list/project-list.component';
 import { ProjectDetailComponent } from './project-detail/project-detail.component';
 import { ProjectFormComponent } from './project-form/project-form.component';
+import { RenderMode } from '@angular/ssr';
 
 const routes: Routes = [
   {
@@ -15,8 +16,19 @@ const routes: Routes = [
   },
   {
     path: ':id',
-    component: ProjectDetailComponent
-  }
+    component: ProjectDetailComponent, 
+    data: {
+      getPrerenderParams: async () => {
+      return [
+      
+                { id: '1' }
+
+              ];
+      
+            }
+       
+          }
+        }
 ];
 
 @NgModule({
