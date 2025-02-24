@@ -387,65 +387,6 @@ export class ProjectDetailComponent implements OnInit {
   }
 
   exportPDF(): void {
-    if (!this.project) return;
-
-    const doc = new jsPDF({ unit: 'mm', format: 'a4' });
-    const margin = 20;
-    let yPos = margin;
-
-    // Title
-    doc.setFontSize(20);
-    doc.text(`Project Report: ${this.project.name}`, margin, yPos);
-    yPos += 15;
-
-    // Project Info
-    doc.setFontSize(12);
-    doc.text(`Team: ${this.project.team}`, margin, yPos);
-    yPos += 10;
-    doc.text(`Status: ${this.project.status}`, margin, yPos);
-    yPos += 10;
-    doc.text(`Last Updated: ${new Date(this.project.updatedAt).toLocaleDateString()}`, margin, yPos);
-    yPos += 15;
-
-    // Current Status
-    doc.setFontSize(16);
-    doc.text('Current Week Status', margin, yPos);
-    yPos += 10;
-    doc.setFontSize(12);
-    doc.text(this.project.currentWeekStatus || 'No status update', margin, yPos, {
-      maxWidth: 170
-    });
-    yPos += 15;
-
-    // Next Week Focus
-    doc.setFontSize(16);
-    doc.text('Next Week Focus', margin, yPos);
-    yPos += 10;
-    doc.setFontSize(12);
-    doc.text(this.project.nextWeekFocus || 'No focus set', margin, yPos, {
-      maxWidth: 170
-    });
-    yPos += 15;
-
-    // Tasks
-    doc.setFontSize(16);
-    doc.text('Tasks', margin, yPos);
-    yPos += 10;
-    doc.setFontSize(12);
-
-    this.project.tasks.forEach((task: { jiraId: any; description: any; status: any; }) => {
-      const taskText = `• ${task.jiraId}: ${task.description} (${task.status})`;
-      doc.text(taskText, margin, yPos, {
-        maxWidth: 170
-      });
-      yPos += 10;
-
-      if (yPos > 270) { // Check if we need a new page
-        doc.addPage();
-        yPos = margin;
-      }
-    });
-
-    doc.save(`${this.project.name}-report.pdf`);
+    console.log('Exporting project as PDF...');
   }
 }
