@@ -1,1 +1,129 @@
-<p>project-detail works!</p>
+<div class="project-detail-container" *ngIf="project">
+    <div class="project-header">
+      <h2>{{project.name}}</h2>
+      <span class="status-badge" [class]="project.status">{{project.status}}</span>
+    </div>
+
+    <div class="content-wrapper">
+      <div class="main-content">
+        <section class="status-section">
+          <h3>Project Status</h3>
+          <div *ngIf="isEditMode; else statusDisplay">
+            <form [formGroup]="statusForm" (ngSubmit)="updateStatus()">
+              <div class="form-group">
+                <label>Current Week Status</label>
+                <textarea 
+                  formControlName="currentWeekStatus" 
+                  class="form-control"
+                  rows="3"
+                ></textarea>
+              </div>
+
+              <div class="form-group">
+                <label>Next Week Focus</label>
+                <textarea 
+                  formControlName="nextWeekFocus" 
+                  class="form-control"
+                  rows="3"
+                ></textarea>
+              </div>
+
+              <div class="button-group">
+                <button type="submit" class="btn btn-primary">Save</button>
+                <button type="button" class="btn btn-secondary" (click)="cancelEdit()">
+                  Cancel
+                </button>
+              </div>
+            </form>
+          </div>
+
+          <ng-template #statusDisplay>
+            <div class="status-info">
+              <div class="info-group">
+                <h4>Current Week Status</h4>
+                <p>{{project.currentWeekStatus || 'No status update'}}</p>
+              </div>
+
+              <div class="info-group">
+                <h4>Next Week Focus</h4>
+                <p>{{project.nextWeekFocus || 'No focus set'}}</p>
+              </div>
+
+              <button 
+                *ngIf="isDeveloper()" 
+                class="btn btn-primary" 
+                (click)="enableEditMode()"
+              >
+                Update Status
+              </button>
+            </div>
+          </ng-template>
+        </section>
+
+        <section class="tasks-section">
+          <h3>Tasks</h3>
+          <div class="task-list">
+            <div *ngFor="let task of project.tasks" class="task-item">
+              <div class="task-header">
+                <span class="jira-id">{{task.jiraId}}</span>
+                <span class="status-badge" [class]="task.status">{{task.status}}</span>
+              </div>
+              <p class="task-description">{{task.description}}</p>
+              <div class="task-actions" *ngIf="isDeveloper()">
+                <button 
+                  class="btn btn-sm" 
+                  [class.btn-success]="task.status === 'in-progress'"
+                  [class.btn-primary]="task.status === 'done'"
+                  (click)="toggleTaskStatus(task)"
+                >
+                  {{task.status === 'in-progress' ? 'Mark Done' : 'Mark In Progress'}}
+                </button>
+              </div>
+            </div>
+
+            <form *ngIf="isDeveloper()" [formGroup]="taskForm" (ngSubmit)="addTask()" class="new-task-form">
+              <div class="form-group">
+                <input 
+                  type="text" 
+                  formControlName="jiraId" 
+                  placeholder="JIRA ID (e.g., PROJ-123)"
+                  class="form-control"
+                >
+              </div>
+              <div class="form-group">
+                <input 
+                  type="text" 
+                  formControlName="description" 
+                  placeholder="Task description"
+                  class="form-control"
+                >
+              </div>
+              <button type="submit" class="btn btn-primary" [disabled]="taskForm.invalid">
+                Add Task
+              </button>
+            </form>
+          </div>
+        </section>
+      </div>
+
+      <div class="side-panel">
+        <div class="project-info">
+          <h3>Project Info</h3>
+          <p><strong>Team:</strong> {{project.team}}</p>
+          <p><strong>Created:</strong> {{project.createdAt | date}}</p>
+          <p><strong>Last Updated:</strong> {{project.updatedAt | date}}</p>
+          <p><strong>Total Tasks:</strong> {{project.tasks.length}}</p>
+        </div>
+
+        <div class="project-actions">
+          <button 
+            *ngIf="isProjectManager()" 
+            class="btn btn-primary"
+            (click)="exportPDF()"
+          >
+            Export as PDF
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>

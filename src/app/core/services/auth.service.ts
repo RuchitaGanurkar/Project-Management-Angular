@@ -1,4 +1,4 @@
-// src/app/core/services/auth.service.ts
+
 import { Injectable, PLATFORM_ID, Inject } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { BehaviorSubject, Observable, of } from 'rxjs';

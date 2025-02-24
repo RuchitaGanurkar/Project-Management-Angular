@@ -1,1 +1,63 @@
-<p>signup works!</p>
+<div class="auth-container">
+    <form [formGroup]="signupForm" (ngSubmit)="onSubmit()" class="auth-form">
+      <h2>Sign Up</h2>
+      
+      <div class="form-group">
+        <label for="username">Username</label>
+        <input 
+          id="username" 
+          type="text" 
+          formControlName="username" 
+          class="form-control"
+          [class.error]="submitted && f['username'].errors"
+        >
+        <div *ngIf="submitted && f['username'].errors" class="error-message">
+          <div *ngIf="f['username'].errors?.['required']">Username is required</div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input 
+          id="password" 
+          type="password" 
+          formControlName="password" 
+          class="form-control"
+          [class.error]="submitted && f['password'].errors"
+        >
+        <div *ngIf="submitted && f['password'].errors" class="error-message">
+          <div *ngIf="f['password'].errors?.['required']">Password is required</div>
+          <div *ngIf="f['password'].errors?.['minlength']">Password must be at least 6 characters</div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="role">Role</label>
+        <select 
+          id="role" 
+          formControlName="role" 
+          class="form-control"
+          [class.error]="submitted && f['role'].errors"
+        >
+          <option value="">Select Role</option>
+          <option value="dev">Developer</option>
+          <option value="project-manager">Project Manager</option>
+        </select>
+        <div *ngIf="submitted && f['role'].errors" class="error-message">
+          <div *ngIf="f['role'].errors?.['required']">Role is required</div>
+        </div>
+      </div>
+
+      <button type="submit" class="btn btn-primary" [disabled]="loading">
+        {{ loading ? 'Loading...' : 'Sign Up' }}
+      </button>
+
+      <div *ngIf="error" class="error-message">
+        {{error}}
+      </div>
+
+      <p class="auth-link">
+        Already have an account? <a routerLink="/auth/login">Login</a>
+      </p>
+    </form>
+  </div>

@@ -1,0 +1,140 @@
+.project-detail-container {
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .project-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+  }
+
+  .content-wrapper {
+    display: grid;
+    grid-template-columns: 1fr 300px;
+    gap: 30px;
+  }
+
+  .status-section,
+  .tasks-section {
+    background: white;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  }
+
+  .form-group {
+    margin-bottom: 15px;
+  }
+
+  .form-control {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+  }
+
+  .button-group {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+  }
+
+  .task-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .task-item {
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 15px;
+  }
+
+  .task-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+  }
+
+  .jira-id {
+    font-weight: bold;
+    color: #0052cc;
+  }
+
+  .status-badge {
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 0.875rem;
+  }
+
+  .status-badge.in-progress {
+    background: #0052cc;
+    color: white;
+  }
+
+  .status-badge.done {
+    background: #28a745;
+    color: white;
+  }
+
+  .task-actions {
+    margin-top: 10px;
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  .btn {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+
+  .btn-primary {
+    background: #007bff;
+    color: white;
+  }
+
+  .btn-secondary {
+    background: #6c757d;
+    color: white;
+  }
+
+  .btn-success {
+    background: #28a745;
+    color: white;
+  }
+
+  .btn-sm {
+    padding: 4px 8px;
+    font-size: 0.875rem;
+  }
+
+  .side-panel {
+    background: white;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    height: fit-content;
+  }
+
+  .new-task-form {
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid #ddd;
+  }
+
+  @media (max-width: 768px) {
+    .content-wrapper {
+      grid-template-columns: 1fr;
+    }
+
+    .side-panel {
+      order: -1;
+    }
+  }

@@ -1,1 +1,96 @@
-<p>project-form works!</p>
+<div class="form-container">
+    <form [formGroup]="projectForm" (ngSubmit)="onSubmit()" class="project-form">
+      <h2>Create New Project</h2>
+
+      <div class="form-group">
+        <label for="name">Project Name</label>
+        <input 
+          id="name" 
+          type="text" 
+          formControlName="name" 
+          class="form-control"
+          [class.error]="submitted && f['name'].errors"
+        >
+        <div *ngIf="submitted && f['name'].errors" class="error-message">
+          <div *ngIf="f['name'].errors?.['required']">Project name is required</div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="team">Team</label>
+        <select 
+          id="team" 
+          formControlName="team" 
+          class="form-control"
+          [class.error]="submitted && f['team'].errors"
+        >
+          <option value="">Select Team</option>
+          <option value="Frontend Team">Frontend Team</option>
+          <option value="Backend Team">Backend Team</option>
+          <option value="QA Team">QA Team</option>
+          <option value="DevOps Team">DevOps Team</option>
+        </select>
+        <div *ngIf="submitted && f['team'].errors" class="error-message">
+          <div *ngIf="f['team'].errors?.['required']">Team is required</div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="status">Initial Status</label>
+        <select 
+          id="status" 
+          formControlName="status" 
+          class="form-control"
+          [class.error]="submitted && f['status'].errors"
+        >
+          <option value="">Select Status</option>
+          <option value="active">Active</option>
+          <option value="on-hold">On Hold</option>
+        </select>
+        <div *ngIf="submitted && f['status'].errors" class="error-message">
+          <div *ngIf="f['status'].errors?.['required']">Status is required</div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="currentWeekStatus">Current Week Status</label>
+        <textarea 
+          id="currentWeekStatus" 
+          formControlName="currentWeekStatus" 
+          class="form-control"
+          rows="3"
+          [class.error]="submitted && f['currentWeekStatus'].errors"
+        ></textarea>
+        <div *ngIf="submitted && f['currentWeekStatus'].errors" class="error-message">
+          <div *ngIf="f['currentWeekStatus'].errors?.['required']">Current week status is required</div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="nextWeekFocus">Next Week Focus</label>
+        <textarea 
+          id="nextWeekFocus" 
+          formControlName="nextWeekFocus" 
+          class="form-control"
+          rows="3"
+          [class.error]="submitted && f['nextWeekFocus'].errors"
+        ></textarea>
+        <div *ngIf="submitted && f['nextWeekFocus'].errors" class="error-message">
+          <div *ngIf="f['nextWeekFocus'].errors?.['required']">Next week focus is required</div>
+        </div>
+      </div>
+
+      <div class="form-actions">
+        <button type="button" class="btn btn-secondary" (click)="onCancel()">
+          Cancel
+        </button>
+        <button type="submit" class="btn btn-primary" [disabled]="loading">
+          {{ loading ? 'Creating...' : 'Create Project' }}
+        </button>
+      </div>
+
+      <div *ngIf="error" class="error-message">
+        {{error}}
+      </div>
+    </form>
+  </div>

@@ -1,1 +1,73 @@
-<p>dashboard works!</p>
+<div class="dashboard-container">
+    <header class="dashboard-header">
+      <h1>Welcome, {{currentUser?.username}}</h1>
+      <button class="btn btn-logout" (click)="logout()">Logout</button>
+    </header>
+
+    <div class="dashboard-stats">
+      <div class="stat-card">
+        <h3>Total Projects</h3>
+        <div class="stat-value">{{(totalProjects$ | async) || 0}}</div>
+      </div>
+      <div class="stat-card">
+        <h3>Active Projects</h3>
+        <div class="stat-value">{{(activeProjects$ | async) || 0}}</div>
+      </div>
+      <div class="stat-card">
+        <h3>Completed Projects</h3>
+        <div class="stat-value">{{(completedProjects$ | async) || 0}}</div>
+      </div>
+    </div>
+
+    <div class="dashboard-content">
+      <section class="recent-projects">
+        <div class="section-header">
+          <h2>Recent Projects</h2>
+          <button 
+            *ngIf="isProjectManager()" 
+            class="btn btn-primary"
+            routerLink="/project/create"
+          >
+            Create Project
+          </button>
+        </div>
+
+        <div class="project-grid">
+          <div *ngFor="let project of (recentProjects$ | async)" class="project-card">
+            <div class="project-header">
+              <h3>{{project.name}}</h3>
+              <span class="status-badge" [class]="project.status">
+                {{project.status}}
+              </span>
+            </div>
+            <div class="project-info">
+              <p><strong>Team:</strong> {{project.team}}</p>
+              <p><strong>Tasks:</strong> {{project.tasks.length}}</p>
+              <p><strong>Updated:</strong> {{project.updatedAt | date:'short'}}</p>
+            </div>
+            <div class="project-footer">
+              <button 
+                class="btn btn-primary"
+                [routerLink]="['/project', project.id]"
+              >
+                View Details
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="task-summary" *ngIf="isDeveloper()">
+        <h2>Your Tasks</h2>
+        <div class="task-list">
+          <div *ngFor="let task of (recentTasks$ | async)" class="task-item">
+            <span class="jira-id">{{task.jiraId}}</span>
+            <span class="task-desc">{{task.description}}</span>
+            <span class="status-badge" [class]="task.status">
+              {{task.status}}
+            </span>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
